@@ -24,6 +24,11 @@ export function startWebServer(bot: Bot): void {
   app.use(express.json());
   app.use(cookieParser());
 
+  // --- Health Check (không cần auth, dùng cho Docker healthcheck) ---
+  app.get('/api/health', (_req, res) => {
+    res.json({ status: 'ok', timestamp: Date.now() });
+  });
+
   // --- API Routes ---
   app.use('/api/auth', authRouter);
   app.use('/api/guilds', createGuildRouter(bot.client));

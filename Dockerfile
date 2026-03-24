@@ -59,6 +59,10 @@ COPY --from=frontend /app/web/dist/ ./web/dist/
 # Tạo thư mục data cho SQLite
 RUN mkdir -p /app/data && chown -R node:node /app/data
 
+# Healthcheck: kiểm tra web server có phản hồi không
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+    CMD curl -f http://localhost:3000/api/health || exit 1
+
 # Chạy với non-root user
 USER node
 

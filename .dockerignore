@@ -31,5 +31,9 @@ Thumbs.db
 *.md
 !README.md
 
+# Data
+data/
+
 # Misc
 docker-compose.yml
+LICENSE
